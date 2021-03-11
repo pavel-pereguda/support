@@ -1,0 +1,41 @@
+logging:
+  level: INFO
+  loggers:
+    com.codexsoft: DEBUG
+server:
+  applicationConnectors:
+    - type: http
+      port: 8084
+      useForwardedHeaders: true
+  applicationContextPath: /services/service-support
+  rootPath: /api
+
+dataSource:
+  username: ${DATASOURCE_USERNAME:-ppr}
+  password: ${DATASOURCE_PASSWORD:-55555555}
+  scheme: support_database
+  driverName: com.mysql.jdbc.Driver
+  jdbcUrl: ${DATASOURCE_URL:-jdbc:mysql://localhost:3306/support_database?allowPublicKeyRetrieval=true&useSSL=false}
+  cPool:
+    testQuery: SELECT 1
+    poolName: HikariCP-1
+    maxSize: 10
+    connectionTimeout: 15000
+    idleTimeout: 400000
+    minIdle: 2
+    maxLifeTime: 400000
+
+swagger:
+  resourcePackage: com.codexsoft.servicesupport.main.api
+  schemes: []
+  swaggerViewConfiguration:
+    showApiSelector: false
+    showAuth: false
+
+migration:
+  changelogClassPath: classpath:/db/changelog-master.yaml
+
+apiConfiguration:
+    machineToken: ${FILESTORE_ACCESS_MACHINE_TOKEN:-}
+
+
